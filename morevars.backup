@@ -1,0 +1,17 @@
+variable "sl_username" { default = "hans.moen@ie.ibm.com" }
+variable "sl_api_key" { default = "319f291f0cc96fa9a88b33fafa13cf51dd374eaef6ab4847ac442ec461396446" }
+variable "nodecount" { default = 3 }
+variable "instance_name" { default = "myICP" }
+variable "icpuser" { default = "admin" }
+variable "icppassword" { default = "admin" }
+variable "datacenter" { default = "ams03" }
+variable "domain" { default = "mydomain.com" }
+variable "cpu_cores" { default = 8 }
+variable "disk_size" { default = 25 }
+variable "memory" { default = 8192 }
+variable "network_speed" { default = 1000 }
+variable "private_network_only" { default = false }
+variable "hourly_billing" { default = true }
+variable "local_disk" { default = true }
+
+

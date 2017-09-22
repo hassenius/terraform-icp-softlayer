@@ -10,3 +10,5 @@ and [TerraForm Module ICP Deploy](https://github.com/ibm-cloud-architecture/terr
   Follow the [Installation instructions on the SoftLayer Github Page](https://github.com/softlayer/terraform-provider-softlayer#install)
 * You'll need a SoftLayer API key. If you don't already have them at hand, follow the [instructions on IBM KnowledgeLayer](https://knowledgelayer.softlayer.com/procedure/retrieve-your-api-key) to retrieve or generate them
 
+### Examples
+1. [Provision ICP Communicty Edition on a small VM cluster](vms_smallcluster_icp-ce/)

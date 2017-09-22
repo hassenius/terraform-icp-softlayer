@@ -74,14 +74,15 @@ resource "softlayer_virtual_guest" "icpproxy" {
 }
 
 module "icpprovision" {
-    source = "github.com/ibm-cloud-architecture/terraform-module-icp-deploy"
+    source = "icp-provision"
     
     icp-master = ["${softlayer_virtual_guest.icpmaster.ipv4_address}"]
     icp-worker = ["${softlayer_virtual_guest.icpworker.*.ipv4_address}"]
     icp-proxy = ["${softlayer_virtual_guest.icpproxy.*.ipv4_address}"]
     
     #icp-version = "2.1.0-beta-1"
-    icp-version = "1.2.0"
+    #icp-version = "1.2.0"
+    icp-version = "ibmcom/icp-inception:2.1.0-beta-2"
 
     /* Workaround for terraform issue #10857
      When this is fixed, we can work this out autmatically */

@@ -16,3 +16,28 @@ Then run
 1. `terraform init`
 2. `terraform get`
 3. `terraform apply`
+
+
+## Scale workers
+To increase the number of workers, simply *increase* the number in [worker-nodes](variables.tf#L53) and apply the update configuration
+
+`terraform apply`
+
+To decrease the number of workers, simply *decrease* the number in [worker-nodes](variables.tf#L53) and apply the update configuration
+
+Please note; because of how terraform handles module dependencies and triggers, it is currently necessary to retrigger the scaling resource **after scaling down** nodes.
+If you don't do this ICP will continue to report inactive nodes until the next scaling event.
+To scale down, then manually trigger the removal of deleted node, run these commands:
+
+1. Apply config to reduce the number of worker VMs
+    
+    `terraform apply` 
+    
+2. Taint the scaling resource to force a recreation
+
+    `terraform taint --module icpprovision null_resource.icp-worker-scaler` 
+
+3. Apply the configuration to force recreation of the scaling resource, removing the deleted nodes from kubernetes
+
+    `terraform apply`
+
