@@ -1,4 +1,4 @@
-# Terraform ICP SoftLayer
+# Deploying IBM Cloud Platform on SoftLayer using TerraForm
 
 These TerraForm example configurations uses the [SoftLayer Provider](https://github.com/softlayer/terraform-provider-softlayer) to provision servers in SoftLayer
 and [TerraForm Module ICP Deploy](https://github.com/ibm-cloud-architecture/terraform-module-icp-deploy) to deploy [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/) on them.
