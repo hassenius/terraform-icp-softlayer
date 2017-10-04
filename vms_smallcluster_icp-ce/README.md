@@ -1,4 +1,4 @@
-# vms_smallcluster_icp-ce
+# Deploying a Small ICP Kubernetes cluster
 
 Example deploying a small ICP cluster of 1 master, 1 proxy and 2 workers on SoftLayer VMs
 
