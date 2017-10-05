@@ -1,4 +1,4 @@
-rovider "softlayer" {
+provider "softlayer" {
 #    username = "${var.sl_username}"
 #    api_key = "${var.sl_api_key}"
 }
@@ -82,7 +82,7 @@ module "icpprovision" {
     
     #icp-version = "2.1.0-beta-1"
     #icp-version = "1.2.0"
-    icp-version = ${var.icp_version}
+    icp-version = "${var.icp_version}"
 
     /* Workaround for terraform issue #10857
      When this is fixed, we can work this out autmatically */

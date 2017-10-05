@@ -13,7 +13,7 @@ variable "datacenter" { default = "wdc04" }
 variable "domain" { default = "icp.camse" }
 
 ##### ICP version #####
-variable "icp_version" { default = "2.1.0-beta-1" }
+variable "icp_version" { default = "2.1.0-beta-3" }
 
 # Name of the ICP installation, will be used as basename for VMs
 variable "instance_name" { default = "myicp" }
