@@ -34,11 +34,6 @@ module "provision" {
     
     nfs = ["${softlayer_virtual_guest.nfs.ipv4_address}"]
     
-    /* Workaround for terraform issue #10857
-     When this is fixed, we can work this out autmatically */
-
-    cluster_size  = "${var.nfs["nodes"]}"
-
     # SSH user and key for terraform to connect to newly created SoftLayer resources
     # ssh_key is the private key corresponding to the public keyname specified in var.key_name
     ssh_user  = "root"
