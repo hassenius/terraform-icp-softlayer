@@ -9,8 +9,8 @@ variable "key_name" {
 
 
 ##### Common VM specifications ######
-variable "datacenter" { default = "ams03" }
-variable "domain" { default = "ibmcloud.private" }
+variable "datacenter" { default = "wdc04" }
+variable "domain" { default = "icp.camse" }
 
 # Name of the ICP installation, will be used as basename for VMs
 variable "instance_name" { default = "myicp" }
