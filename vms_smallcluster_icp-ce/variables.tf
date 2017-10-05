@@ -4,13 +4,16 @@ variable "sl_api_key" { default = "__INSERT_YOUR_OWN__" }
 
 variable "key_name" { 
   description = "Name or reference of SSH key to provision softlayer instances with"
-  default = "__INSERT_YOUR_OWN__"
+  default = "patro-key"
 }
 
 
 ##### Common VM specifications ######
 variable "datacenter" { default = "wdc04" }
 variable "domain" { default = "icp.camse" }
+
+##### ICP version #####
+variable "icp_version" { default = "2.1.0-beta-1" }
 
 # Name of the ICP installation, will be used as basename for VMs
 variable "instance_name" { default = "myicp" }
