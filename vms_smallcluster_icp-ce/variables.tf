@@ -9,11 +9,11 @@ variable "key_name" {
 
 
 ##### Common VM specifications ######
-variable "datacenter" { default = "wdc04" }
-variable "domain" { default = "icp.camse" }
+variable "datacenter" { default = "wdc01" }
+variable "domain" { default = "icp2.camse" }
 
 ##### ICP version #####
-variable "icp_version" { default = "2.1.0-beta-3" }
+variable "icp_version" { default = "ibmcom/icp-inception:2.1.0-beta-3" }
 
 # Name of the ICP installation, will be used as basename for VMs
 variable "instance_name" { default = "myicp" }
@@ -24,7 +24,7 @@ variable "master" {
   
   default = {
     nodes       = "1"
-    cpu_cores   = "8"
+    cpu_cores   = "2"
     disk_size   = "25" // GB
     local_disk  = false
     memory      = "8192"
@@ -39,7 +39,7 @@ variable "proxy" {
   
   default = {
     nodes       = "1"
-    cpu_cores   = "8"
+    cpu_cores   = "2"
     disk_size   = "25" // GB
     local_disk  = true
     memory      = "8192"
@@ -54,7 +54,7 @@ variable "worker" {
   
   default = {
     nodes       = "2"
-    cpu_cores   = "8"
+    cpu_cores   = "2"
     disk_size   = "25" // GB
     local_disk  = true
     memory      = "8192"
