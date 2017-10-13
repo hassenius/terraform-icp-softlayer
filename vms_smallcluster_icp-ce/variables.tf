@@ -9,8 +9,8 @@ variable "key_name" {
 
 
 ##### Common VM specifications ######
-variable "datacenter" { default = "wdc01" }
-variable "domain" { default = "icp2.camse" }
+variable "datacenter" { default = "wdc04" }
+variable "domain" { default = "icp2.patro" }
 
 ##### ICP version #####
 variable "icp_version" { default = "ibmcom/icp-inception:2.1.0-beta-3" }
