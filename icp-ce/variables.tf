@@ -9,14 +9,14 @@ variable "key_name" {
 
 
 ##### Common VM specifications ######
-variable "datacenter" { default = "wdc04" }
+variable "datacenter" { default = "lon02" }
 variable "domain" { default = "icp2.patro" }
 
 ##### ICP version #####
 variable "icp_version" { default = "ibmcom/icp-inception:2.1.0-beta-3" }
 
 # Name of the ICP installation, will be used as basename for VMs
-variable "instance_name" { default = "myicp" }
+variable "instance_name" { default = "london" }
 
 ##### ICP Instance details ######
 variable "master" {
@@ -25,7 +25,7 @@ variable "master" {
   default = {
     nodes       = "1"
     cpu_cores   = "2"
-    disk_size   = "25" // GB
+    disk_size   = "100" // GB
     local_disk  = false
     memory      = "8192"
     network_speed= "1000"
@@ -53,11 +53,11 @@ variable "worker" {
   type = "map"
   
   default = {
-    nodes       = "2"
-    cpu_cores   = "2"
-    disk_size   = "25" // GB
+    nodes       = "1"
+    cpu_cores   = "8"
+    disk_size   = "100" // GB
     local_disk  = true
-    memory      = "8192"
+    memory      = "16384"
     network_speed= "1000"
     private_network_only=false
     hourly_billing=true
