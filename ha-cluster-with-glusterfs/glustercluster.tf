@@ -53,6 +53,7 @@ resource "null_resource" "gluster" {
     destination = "/tmp/clusternames.txt"
   }
 
+  # Create a file to hold gluster ips and hostname for /etc/hosts
   provisioner "file" {
     content = "${join("", formatlist("%s     %s\n", softlayer_virtual_guest.glustercluster.*.ipv4_address_private,softlayer_virtual_guest.glustercluster.*.hostname))}"
     destination = "/tmp/glusterhosts.txt"
@@ -61,7 +62,6 @@ resource "null_resource" "gluster" {
   # Setup hosts and firewall
   provisioner "remote-exec" {
     scripts = [
-      "cat /tmp/glusterhosts.txt | sudo tee -a /etc/hosts",
       "scripts/setup-firewall.sh"
     ]
   }
@@ -69,6 +69,7 @@ resource "null_resource" "gluster" {
   # Setup glusterfs software
   provisioner "remote-exec" {
     inline = [
+      "cat /tmp/glusterhosts.txt | sudo tee -a /etc/hosts",
       "sudo apt-get update",
       "sudo apt-get -y upgrade",
       "sudo apt-get install -y software-properties-common",
@@ -76,7 +77,7 @@ resource "null_resource" "gluster" {
       "sudo apt-get update",
       "sudo apt-get install -y glusterfs-server",
       "sudo service glusterd start",
-      "sudo mkdir -p /data/gluster/icprepository",
+      "sudo mkdir -p /data/gluster/icpregistry",
       "sudo mkdir -p /data/gluster/icpaudit"
     ]
   }
@@ -110,11 +111,11 @@ resource "null_resource" "glusterconfig" {
     inline = [
       "for host in ${join(" ", softlayer_virtual_guest.glustercluster.*.hostname)}; do gluster peer probe $host && echo \"Peer Probe: $host\"; done",
       "sleep 7; sudo gluster peer status",
-      "sudo gluster volume create icprepository replica ${var.gluster["nodes"]} ${join(" ", formatlist("%s:/data/gluster/icprepository", softlayer_virtual_guest.glustercluster.*.hostname))} force",
-      "sudo gluster volume start icprepository",
+      "sudo gluster volume create icpregistry replica ${var.gluster["nodes"]} ${join(" ", formatlist("%s:/data/gluster/icpregistry", softlayer_virtual_guest.glustercluster.*.hostname))} force",
+      "sudo gluster volume start icpregistry",
       "sudo gluster volume create icpaudit replica ${var.gluster["nodes"]} ${join(" ", formatlist("%s:/data/gluster/icpaudit", softlayer_virtual_guest.glustercluster.*.hostname))} force",
       "sudo gluster volume start icpaudit",
-      "sleep 4; sudo gluster volume info icprepository",
+      "sleep 4; sudo gluster volume info icpregistry",
       "sleep 4; sudo gluster volume info icpaudit"
     ]
   }
