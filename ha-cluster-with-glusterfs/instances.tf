@@ -20,36 +20,34 @@ resource "softlayer_virtual_guest" "icpmaster" {
 
     ssh_key_ids = ["${data.softlayer_ssh_key.public_key.id}"]
     
-}
-## Master nodes need gluster to share icp docker registry and icp audit files
-resource "null_resource" "glusterclient" {
-  count = "${var.master["nodes"]}"
-  
-  connection {
-    host = "${element(softlayer_virtual_guest.icpmaster.*.ipv4_address, count.index)}"
-    user = "${var.ssh_user}"
-    private_key = "${file(var.ssh_key)}"
-  }
-  
-  provisioner "file" {
-    content = "${join("", formatlist("%s     %s\n", softlayer_virtual_guest.glustercluster.*.ipv4_address_private,softlayer_virtual_guest.glustercluster.*.hostname))}"
-    destination = "/tmp/hosts.txt"
-  }
-  
-  provisioner "remote-exec" {
-    inline = [
-      "cat /tmp/hosts.txt | sudo tee -a /etc/hosts",
-      "sudo mkdir -p /var/lib/registry",
-      "sudo mkdir -p /var/lib/icp/audit",
-      "sudo apt-get update",
-      "sudo apt-get install -y glusterfs-client",
-      "echo \"${softlayer_virtual_guest.glustercluster.0.hostname}:/icpaudit /var/lib/icp/audit glusterfs  defaults,_netdev 0 0\" | sudo tee -a /etc/fstab",
-      "echo \"${softlayer_virtual_guest.glustercluster.0.hostname}:/icpregistry /var/lib/registry glusterfs  defaults,_netdev 0 0\" | sudo tee -a /etc/fstab",
-      "sudo mount /var/lib/registry",
-      "sudo mount /var/lib/icp/audit"
+    ## Master nodes need gluster to share icp docker registry and icp audit files   
+    provisioner "file" {
+      connection {
+        private_key = "${file(var.ssh_key)}"
+      }
+      content = "${join("", formatlist("%s     %s\n", softlayer_virtual_guest.glustercluster.*.ipv4_address_private,softlayer_virtual_guest.glustercluster.*.hostname))}"
+      destination = "/tmp/hosts.txt"
+    }
+    
+    provisioner "remote-exec" {
       
-    ]
-  }
+      connection {
+        private_key = "${file(var.ssh_key)}"
+      }
+    
+      inline = [
+        "cat /tmp/hosts.txt | sudo tee -a /etc/hosts",
+        "sudo mkdir -p /var/lib/registry",
+        "sudo mkdir -p /var/lib/icp/audit",
+        "sudo apt-get update",
+        "sudo apt-get install -y glusterfs-client",
+        "echo \"${softlayer_virtual_guest.glustercluster.0.hostname}:/icpaudit /var/lib/icp/audit glusterfs  defaults,_netdev 0 0\" | sudo tee -a /etc/fstab",
+        "echo \"${softlayer_virtual_guest.glustercluster.0.hostname}:/icpregistry /var/lib/registry glusterfs  defaults,_netdev 0 0\" | sudo tee -a /etc/fstab",
+        "sudo mount /var/lib/registry",
+        "sudo mount /var/lib/icp/audit"
+        
+      ]
+    }
 }
 
 resource "softlayer_virtual_guest" "icpworker" {
@@ -95,6 +93,8 @@ resource "softlayer_virtual_guest" "icpproxy" {
     
     ssh_key_ids = ["${data.softlayer_ssh_key.public_key.id}"]
 }
+
+
 
 module "icpprovision" {
     #source = "icp-provision"
