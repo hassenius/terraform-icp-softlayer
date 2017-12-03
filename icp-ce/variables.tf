@@ -9,14 +9,14 @@ variable "key_name" {
 
 
 ##### Common VM specifications ######
-variable "datacenter" { default = "lon02" }
+variable "datacenter" { default = "sao01" }
 variable "domain" { default = "icp2.patro" }
 
 ##### ICP version #####
-variable "icp_version" { default = "ibmcom/icp-inception:2.1.0-beta-3" }
+variable "icp_version" { default = "ibmcom/icp-inception:latest" }
 
 # Name of the ICP installation, will be used as basename for VMs
-variable "instance_name" { default = "london" }
+variable "instance_name" { default = "sao" }
 
 ##### ICP Instance details ######
 variable "master" {
