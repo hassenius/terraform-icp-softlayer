@@ -18,6 +18,10 @@ variable "icp_version" { default = "ibmcom/icp-inception:latest" }
 # Name of the ICP installation, will be used as basename for VMs
 variable "instance_name" { default = "sao" }
 
+variable "icp_admin_password" {
+  description = "ICP Admin Users password password. 'Generate' generates a new random password"
+  default     = "Generate"
+}
 ##### ICP Instance details ######
 variable "master" {
   type = "map"
