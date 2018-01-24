@@ -74,7 +74,7 @@ resource "softlayer_virtual_guest" "icpproxy" {
 }
 
 module "icpprovision" {
-    source = "github.com/ibm-cloud-architecture/terraform-module-icp-deploy"
+    source = "github.com/ibm-cloud-architecture/terraform-module-icp-deploy?ref=1.0.0"
     
     icp-master = ["${softlayer_virtual_guest.icpmaster.ipv4_address}"]
     icp-worker = ["${softlayer_virtual_guest.icpworker.*.ipv4_address}"]
